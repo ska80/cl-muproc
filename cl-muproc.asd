@@ -65,28 +65,27 @@
   :author "Klaus Harbo <klaus@mu.dk>"
   :maintainer "Klaus Harbo <klaus@mu.dk>"
   :description "A library for message-passing CL processes, inspired by the Erlang programming language."
-  :components
-  ((:file "muproc-packages")
-   #+lispworks (:file "muproc-lispworks")
-   #+openmcl (:file "muproc-openmcl")
-   #+(or sbcl cmu) (:file "mbox")
-   #+(or sbcl cmu) (:file "muproc-bordeaux")
-   #+sbcl (:file "muproc-sbcl")
-   #+cmu (:file "muproc-cmucl")
-   #+allegro (:file "muproc-allegro")
-   (:file "muproc" :depends-on (#+lispworks "muproc-lispworks"
-				#+openmcl "muproc-openmcl"
-				#+(or sbcl cmu) "mbox"
-				#+(or sbcl cmu) "muproc-bordeaux"
-				#+sbcl "muproc-sbcl"
-				#+cmu "muproc-cmucl"
-				#+allegro "muproc-allegro"
-				))
-   (:file "generic-server" :depends-on ("muproc"))
-   (:file "supervisor" :depends-on ("muproc"))
-   )
-  :serial t
+  :version "git"
   :depends-on (#+(or sbcl cmu) :bordeaux-threads
-               #+(or sbcl cmu) :timer))
-
-;eof
+               #+(or sbcl cmu) :timer)
+  :components
+  ((:module "src"
+            :serial t
+            :components
+            ((:file "packages")
+             #+lispworks (:file "muproc-lispworks")
+             #+openmcl (:file "muproc-openmcl")
+             #+(or sbcl cmu) (:file "mbox")
+             #+(or sbcl cmu) (:file "muproc-bordeaux")
+             #+sbcl (:file "muproc-sbcl")
+             #+cmu (:file "muproc-cmucl")
+             #+allegro (:file "muproc-allegro")
+             (:file "muproc" :depends-on (#+lispworks "muproc-lispworks"
+                                          #+openmcl "muproc-openmcl"
+                                          #+(or sbcl cmu) "mbox"
+                                          #+(or sbcl cmu) "muproc-bordeaux"
+                                          #+sbcl "muproc-sbcl"
+                                          #+cmu "muproc-cmucl"
+                                          #+allegro "muproc-allegro"))
+             (:file "generic-server" :depends-on ("muproc"))
+             (:file "supervisor" :depends-on ("muproc"))))))
