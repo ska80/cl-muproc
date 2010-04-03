@@ -30,7 +30,7 @@
 (defpackage #:cl-muproc.system (:use #:asdf #:cl))
 (in-package #:cl-muproc.system)
 
-#-(or lispworks clozure sbcl cmu allegro)
+#-(or lispworks clozure sbcl cmu allegro ecl)
 (error "~a: not supported by cl-muproc." (lisp-implementation-type))
 
 (defsystem cl-muproc
@@ -66,8 +66,8 @@
   :maintainer "Klaus Harbo <klaus@mu.dk>"
   :description "A library for message-passing CL processes, inspired by the Erlang programming language."
   :version "git"
-  :depends-on (#+(or sbcl cmu) :bordeaux-threads
-               #+(or sbcl cmu) :timer)
+  :depends-on (#+(or sbcl cmu ecl) :bordeaux-threads
+               #+(or sbcl cmu ecl) :timer)
   :components
   ((:module "src"
             :serial t
@@ -75,17 +75,19 @@
             ((:file "packages")
              #+lispworks (:file "muproc-lispworks")
              #+clozure (:file "muproc-clozure")
-             #+(or sbcl cmu) (:file "mbox")
-             #+(or sbcl cmu) (:file "muproc-bordeaux")
+             #+(or sbcl cmu ecl) (:file "mbox")
+             #+(or sbcl cmu ecl) (:file "muproc-bordeaux")
              #+sbcl (:file "muproc-sbcl")
              #+cmu (:file "muproc-cmucl")
              #+allegro (:file "muproc-allegro")
+             #+ecl (:file "muproc-ecl")
              (:file "muproc" :depends-on (#+lispworks "muproc-lispworks"
                                           #+clozure "muproc-clozure"
-                                          #+(or sbcl cmu) "mbox"
-                                          #+(or sbcl cmu) "muproc-bordeaux"
+                                          #+(or sbcl cmu ecl) "mbox"
+                                          #+(or sbcl cmu ecl) "muproc-bordeaux"
                                           #+sbcl "muproc-sbcl"
                                           #+cmu "muproc-cmucl"
-                                          #+allegro "muproc-allegro"))
+                                          #+allegro "muproc-allegro"
+                                          #+ecl "muproc-ecl"))
              (:file "generic-server" :depends-on ("muproc"))
              (:file "supervisor" :depends-on ("muproc"))))))

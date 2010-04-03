@@ -31,8 +31,8 @@
 a implementation of all symbols exported from CL-MUPROC.COMPAT must be
 provided.  See PORTING file in cl-muproc distribution for more
 information.")
-  (:use :common-lisp #+(or sbcl cmu) :bordeaux-threads)
-  (:export 
+  (:use :common-lisp #+(or sbcl cmu ecl) :bordeaux-threads)
+  (:export
    %all-processes%
    %current-process%
    %dequeue%
@@ -53,8 +53,7 @@ information.")
    %unschedule-timer%
    %with-debugging-stack%
    %with-exclusive-access%
-   %with-timeout%
-   ))
+   %with-timeout%))
 
 (defpackage :cl-muproc
   (:use :common-lisp :cl-muproc.compat)
@@ -109,8 +108,7 @@ information.")
    #:muproc-with-timeout
    #:muproc-with-message-tag
    #:muproc-with-registered-port
-   #:muprocn
-   ))
+   #:muprocn))
 
 (defpackage :cl-muproc.generic-server
   (:use :cl :cl-muproc :cl-muproc.compat)
@@ -125,8 +123,7 @@ information.")
    #:muproc-generic-call
    #:muproc-generic-cast
    #:muproc-generic-start
-   #:muproc-generic-stop
-   ))
+   #:muproc-generic-stop))
 
 (defpackage :cl-muproc.supervisor
   (:use :cl :cl-muproc :cl-muproc.compat)
@@ -134,7 +131,4 @@ information.")
   (:export
    #:supervised-muproc
    #:supervisor
-   #:supervisor-start
-   ))
-
-;;eof
+   #:supervisor-start))

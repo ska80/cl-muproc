@@ -324,7 +324,7 @@ terminates).")
 				   :condition-muproc (muproc-current-process)))))
     (if (eq muproc (muproc-current-process))
 	(signal-it)
-	(%process-interrupt% 
+	(%process-interrupt%
 	 muproc
 	 (lambda ()
 	   (if (muproc-trap-exits-p)
@@ -997,7 +997,7 @@ cf. `muproc-make-interrupt-timer' and `muproc-schedule-timer'."
        (muproc-make-interrupt-timer function)
        (- universal-time (get-universal-time)) repeat-period)
       (muproc-schedule-timer-relative
-       (muproc-make-interrupt-timer function) 
+       (muproc-make-interrupt-timer function)
        (- universal-time (get-universal-time)))))
 
 (defun muproc-schedule-relative (function expiry-time &optional repeat-period)
@@ -1012,7 +1012,7 @@ cf. `muproc-make-interrupt-timer' and `muproc-schedule-timer'."
        (muproc-make-interrupt-timer function)
        expiry-time repeat-period)
       (muproc-schedule-timer-relative
-       (muproc-make-interrupt-timer function) 
+       (muproc-make-interrupt-timer function)
        expiry-time)))
 
 ;;; MUPROC LINKING
@@ -1195,7 +1195,3 @@ NIL is returned.")
     (clrhash *ports*)
     (clrhash *registrations*)
     (setf *links* nil)))
-  
-
-
-;;eof

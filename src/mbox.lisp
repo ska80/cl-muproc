@@ -1,6 +1,6 @@
 (in-package :cl-muproc.compat)
 
-(defstruct (mbox (:conc-name mbox.)) 
+(defstruct (mbox (:conc-name mbox.))
   (lock (make-lock))
   (waitqueue  (make-condition-variable))
   (capacity 0 :type (or fixnum null))
@@ -25,7 +25,6 @@
     (loop
        while (%mbox-fullp mbox)
        do (condition-wait (mbox.waitqueue mbox) (mbox.lock mbox)))
-    
     (let ((lmsg (list message))
           (q (mbox.queue mbox)))
       (setf (mbox.queue mbox) (if q (nconc q lmsg) lmsg))
